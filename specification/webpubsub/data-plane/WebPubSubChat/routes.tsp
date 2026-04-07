@@ -68,7 +68,12 @@ interface Chat {
     ListQueryParametersTrait<{
       /** Maximum number of roles to return. */
       @query
-      maxCount?: int32;
+      @pageSize
+      pageSize?: int32;
+
+      /** Continuation token for pagination. */
+      @query
+      continuationToken?: string;
     }>
   >;
 
@@ -98,10 +103,6 @@ interface Chat {
   @summary("Get room information.")
   getRoom is Operations.ResourceRead<ChatRoomInfo>;
 
-  /** Update room information. */
-  @summary("Update room information.")
-  updateRoom is Operations.ResourceCreateOrUpdate<ChatRoomInfo>;
-
   /** Delete a room. */
   @summary("Delete a room.")
   deleteRoom is Operations.ResourceDelete<ChatRoomInfo>;
@@ -110,7 +111,19 @@ interface Chat {
 
   /** Get room members. */
   @summary("Get room members.")
-  listRoomMembers is Operations.ResourceList<ChatRoomMember>;
+  listRoomMembers is Operations.ResourceList<
+    ChatRoomMember,
+    ListQueryParametersTrait<{
+      /** Maximum number of members to return. */
+      @query
+      @pageSize
+      pageSize?: int32;
+
+      /** Continuation token for pagination. */
+      @query
+      continuationToken?: string;
+    }>
+  >;
 
   /** Create or replace a room member. */
   @summary("Create or replace a room member.")

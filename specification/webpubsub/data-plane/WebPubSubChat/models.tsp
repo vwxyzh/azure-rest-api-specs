@@ -20,21 +20,6 @@ model Hub {
   hub: string;
 }
 
-/** Chat conversation identifier. */
-model ChatConversation {
-  /** Conversation identifier. */
-  @pattern("^c\\.[A-Za-z0-9_-]{1,64}(?:\\.[A-Za-z0-9_-]{1,64})?$")
-  conversationId?: string;
-
-  /** Room identifier. */
-  @pattern("^[A-Za-z0-9_-]{1,64}$")
-  roomId?: string;
-
-  /** Topic identifier. */
-  @pattern("^[A-Za-z0-9_-]{1,64}$")
-  topicId?: string;
-}
-
 /** Represents conversation information. */
 @resource("chat/conversations")
 @parentResource(Hub)
@@ -47,6 +32,10 @@ model ChatConversationInfo {
 
   /** Parent room identifier. */
   parentRoom: string;
+
+  /** ETag for concurrency control. */
+  @visibility(Lifecycle.Read)
+  etag: string;
 }
 
 /** Chat message information. */
@@ -68,6 +57,10 @@ model ChatMessageInfo {
   /** Timestamp when the message was created. */
   @visibility(Lifecycle.Read)
   createdAt?: utcDateTime;
+
+  /** ETag for concurrency control. */
+  @visibility(Lifecycle.Read)
+  etag: string;
 }
 
 /**
@@ -86,6 +79,10 @@ model ChatRoleInfo {
 
   /** Permissions associated with the role. Do not mix user permissions and room permissions in one role. */
   permissions: string[];
+
+  /** ETag for concurrency control. */
+  @visibility(Lifecycle.Read)
+  etag: string;
 }
 
 /** Represents room information. */
@@ -104,6 +101,10 @@ model ChatRoomInfo {
   /** Default conversation ID for this room. */
   @visibility(Lifecycle.Read)
   defaultConversation: string;
+
+  /** ETag for concurrency control. */
+  @visibility(Lifecycle.Read)
+  etag: string;
 }
 
 /** Represents a room member. */
@@ -118,6 +119,10 @@ model ChatRoomMember {
 
   /** Room role assigned to the user within this room. */
   role: string;
+
+  /** ETag for concurrency control. */
+  @visibility(Lifecycle.Read)
+  etag: string;
 }
 
 /** Represents a user profile in the chat system. */
@@ -135,6 +140,10 @@ model ChatUserProfile {
 
   /** Global user role assigned to the user. */
   role?: string;
+
+  /** ETag for concurrency control. */
+  @visibility(Lifecycle.Read)
+  etag: string;
 }
 
 /** Message content body. */
