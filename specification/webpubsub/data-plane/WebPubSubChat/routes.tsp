@@ -69,10 +69,11 @@ interface Chat {
       /** Maximum number of roles to return. */
       @query
       @pageSize
-      pageSize?: int32;
+      maxpagesize?: int32;
 
       /** Continuation token for pagination. */
       @query
+      @continuationToken
       continuationToken?: string;
     }>
   >;
@@ -117,10 +118,11 @@ interface Chat {
       /** Maximum number of members to return. */
       @query
       @pageSize
-      pageSize?: int32;
+      maxpagesize?: int32;
 
       /** Continuation token for pagination. */
       @query
+      @continuationToken
       continuationToken?: string;
     }>
   >;
