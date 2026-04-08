@@ -13,14 +13,16 @@
       "body": {
         "roomId": "room1",
         "title": "General Chat",
-        "defaultConversation": "c.room1"
+        "defaultConversation": "c.room1.abcd1234",
+        "etag": "etag1"
       }
     },
     "201": {
       "body": {
         "roomId": "room1",
         "title": "General Chat",
-        "defaultConversation": "c.room1"
+        "defaultConversation": "c.room1.abcd1234",
+        "etag": "etag1"
       }
     }
   },

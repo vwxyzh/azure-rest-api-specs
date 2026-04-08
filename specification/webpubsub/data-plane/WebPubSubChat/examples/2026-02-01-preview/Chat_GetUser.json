@@ -7,7 +7,7 @@
   "responses": {
     "200": {
       "body": {
-        "id": "user1",
+        "userId": "user1",
         "nickname": "John",
         "role": "user.normal",
         "etag": "etag1"
