@@ -6,21 +6,24 @@
     "contentType": "application/merge-patch+json",
     "resource": {
       "title": "Updated Room Title"
-    }
+    },
+    "if-match": "etag0"
   },
   "responses": {
     "200": {
       "body": {
         "id": "room1",
         "title": "Updated Room Title",
-        "defaultConversation": "c.room1"
+        "defaultConversation": "c.room1.abcd1234",
+        "etag": "etag1"
       }
     },
     "201": {
       "body": {
         "id": "room1",
         "title": "Updated Room Title",
-        "defaultConversation": "c.room1"
+        "defaultConversation": "c.room1.abcd1234",
+        "etag": "etag1"
       }
     }
   },

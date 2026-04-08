@@ -2,7 +2,8 @@
   "parameters": {
     "api-version": "2026-02-01-preview",
     "hub": "chat_hub",
-    "roomId": "room1"
+    "roomId": "room1",
+    "maxpagesize": 10
   },
   "responses": {
     "200": {
@@ -10,11 +11,13 @@
         "value": [
           {
             "userId": "user1",
-            "role": "room.operator"
+            "role": "room.operator",
+            "etag": "etag1"
           },
           {
             "userId": "user2",
-            "role": "room.member"
+            "role": "room.member",
+            "etag": "etag2"
           }
         ]
       }

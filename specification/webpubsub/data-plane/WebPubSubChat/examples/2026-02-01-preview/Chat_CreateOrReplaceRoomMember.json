@@ -6,19 +6,22 @@
     "userId": "user1",
     "resource": {
       "role": "room.member"
-    }
+    },
+    "if-match": "etag0"
   },
   "responses": {
     "200": {
       "body": {
         "userId": "user1",
-        "role": "room.member"
+        "role": "room.member",
+        "etag": "etag1"
       }
     },
     "201": {
       "body": {
         "userId": "user1",
-        "role": "room.member"
+        "role": "room.member",
+        "etag": "etag1"
       }
     }
   },

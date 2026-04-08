@@ -5,19 +5,20 @@
     "roomId": "room1",
     "resource": {
       "title": "General Chat"
-    }
+    },
+    "if-match": "etag0"
   },
   "responses": {
     "200": {
       "body": {
-        "id": "room1",
+        "roomId": "room1",
         "title": "General Chat",
         "defaultConversation": "c.room1"
       }
     },
     "201": {
       "body": {
-        "id": "room1",
+        "roomId": "room1",
         "title": "General Chat",
         "defaultConversation": "c.room1"
       }

@@ -20,7 +20,8 @@
           "room.publish_image",
           "room.publish_attachment",
           "room.publish_reactions"
-        ]
+        ],
+        "etag": "etag1"
       }
     }
   },

@@ -11,7 +11,8 @@
         "room.remove_user",
         "room.publish_message"
       ]
-    }
+    },
+    "if-match": "etag0"
   },
   "responses": {
     "200": {
@@ -23,7 +24,8 @@
           "room.freeze",
           "room.remove_user",
           "room.publish_message"
-        ]
+        ],
+        "etag": "etag1"
       }
     },
     "201": {
@@ -35,7 +37,8 @@
           "room.freeze",
           "room.remove_user",
           "room.publish_message"
-        ]
+        ],
+        "etag": "etag1"
       }
     }
   },

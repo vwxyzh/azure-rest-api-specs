@@ -6,21 +6,24 @@
     "resource": {
       "nickname": "John",
       "role": "user.normal"
-    }
+    },
+    "if-match": "etag0"
   },
   "responses": {
     "200": {
       "body": {
-        "id": "user1",
+        "userId": "user1",
         "nickname": "John",
-        "role": "user.normal"
+        "role": "user.normal",
+        "etag": "etag1"
       }
     },
     "201": {
       "body": {
-        "id": "user1",
+        "userId": "user1",
         "nickname": "John",
-        "role": "user.normal"
+        "role": "user.normal",
+        "etag": "etag1"
       }
     }
   },

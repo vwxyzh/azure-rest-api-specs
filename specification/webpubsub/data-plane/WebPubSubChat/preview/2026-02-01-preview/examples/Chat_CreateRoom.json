@@ -7,7 +7,14 @@
     }
   },
   "responses": {
-    "201": {}
+    "201": {
+      "body": {
+        "roomId": "room1",
+        "title": "General Chat",
+        "defaultConversation": "c.room1",
+        "etag": "etag1"
+      }
+    }
   },
   "operationId": "Chat_CreateRoom",
   "title": "Chat_CreateRoom"

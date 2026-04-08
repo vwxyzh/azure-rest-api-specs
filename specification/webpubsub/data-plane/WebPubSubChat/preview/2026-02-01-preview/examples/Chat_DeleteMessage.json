@@ -3,7 +3,8 @@
     "api-version": "2026-02-01-preview",
     "hub": "chat_hub",
     "conversationId": "c.room1",
-    "messageId": "msg1"
+    "messageId": "msg1",
+    "if-match": "etag0"
   },
   "responses": {
     "204": {}

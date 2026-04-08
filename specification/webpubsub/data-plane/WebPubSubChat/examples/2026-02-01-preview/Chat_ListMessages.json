@@ -3,7 +3,7 @@
     "api-version": "2026-02-01-preview",
     "hub": "chat_hub",
     "conversationId": "c.room1",
-    "pageSize": 10
+    "maxpagesize": 10
   },
   "responses": {
     "200": {
@@ -15,7 +15,8 @@
             "content": {
               "text": "Hello world"
             },
-            "createdAt": "2026-01-01T00:00:00Z"
+            "createdAt": "2026-01-01T00:00:00Z",
+            "etag": "etag1"
           }
         ]
       }

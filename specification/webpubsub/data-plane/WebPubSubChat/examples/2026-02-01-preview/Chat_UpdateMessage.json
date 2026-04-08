@@ -10,7 +10,8 @@
       "content": {
         "text": "Updated message text"
       }
-    }
+    },
+    "if-match": "etag0"
   },
   "responses": {
     "200": {
@@ -20,7 +21,8 @@
         "content": {
           "text": "Updated message text"
         },
-        "createdAt": "2026-01-01T00:00:00Z"
+        "createdAt": "2026-01-01T00:00:00Z",
+        "etag": "etag1"
       }
     },
     "201": {
@@ -30,7 +32,8 @@
         "content": {
           "text": "Updated message text"
         },
-        "createdAt": "2026-01-01T00:00:00Z"
+        "createdAt": "2026-01-01T00:00:00Z",
+        "etag": "etag1"
       }
     }
   },
