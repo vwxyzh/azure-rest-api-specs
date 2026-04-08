@@ -47,7 +47,7 @@ interface Chat {
       /** Maximum number of messages to return. */
       @query
       @pageSize
-      pageSize?: int32;
+      maxpagesize?: int32;
     }>
   >;
 
