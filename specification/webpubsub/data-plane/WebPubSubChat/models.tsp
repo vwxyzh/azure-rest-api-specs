@@ -16,14 +16,16 @@ model Hub {
   @key("hub")
   @visibility(Lifecycle.Read)
   @pattern("^[A-Za-z][A-Za-z0-9_`,.[\\]]{0,127}$")
+  @minLength(1)
+  @maxLength(128)
   @clientName("hubName", "csharp")
   hub: string;
 }
 
-/** Represents conversation information. */
+/** Represents a chat conversation. */
 @resource("chat/conversations")
 @parentResource(Hub)
-model ChatConversationInfo {
+model ChatConversation {
   /** Conversation identifier. */
   @key("conversationId")
   @visibility(Lifecycle.Read)
@@ -38,10 +40,10 @@ model ChatConversationInfo {
   etag: string;
 }
 
-/** Chat message information. */
+/** Represents a chat message. */
 @resource("messages")
-@parentResource(ChatConversationInfo)
-model ChatMessageInfo {
+@parentResource(ChatConversation)
+model ChatMessage {
   /** Message identifier. */
   @key("messageId")
   @visibility(Lifecycle.Read)
@@ -49,14 +51,14 @@ model ChatMessageInfo {
   messageId: string;
 
   /** User who created the message. */
-  createdBy?: string;
+  createdBy: string;
 
   /** Message content. */
-  content?: ContentBody;
+  content: ContentBody;
 
   /** Timestamp when the message was created. */
   @visibility(Lifecycle.Read)
-  createdAt?: utcDateTime;
+  createdAt: utcDateTime;
 
   /** ETag for concurrency control. */
   @visibility(Lifecycle.Read)
@@ -64,17 +66,19 @@ model ChatMessageInfo {
 }
 
 /**
- * Represents role information.
+ * Represents a chat role.
  * A role name must start with 'user.' or 'room.' prefix.
  * A role must contain either user permissions or room permissions, but not both.
  */
 @resource("chat/roles")
 @parentResource(Hub)
-model ChatRoleInfo {
+model ChatRole {
   /** Role name. Must start with 'user.' or 'room.' prefix. */
   @key("role")
   @visibility(Lifecycle.Read)
   @pattern("^[a-z0-9_.-]{1,64}$")
+  @minLength(1)
+  @maxLength(64)
   role: string;
 
   /** Permissions associated with the role. Do not mix user permissions and room permissions in one role. */
@@ -85,15 +89,17 @@ model ChatRoleInfo {
   etag: string;
 }
 
-/** Represents room information. */
+/** Represents a chat room. */
 @resource("chat/rooms")
 @parentResource(Hub)
-model ChatRoomInfo {
+model ChatRoom {
   /** Room identifier. */
   @key("roomId")
   @visibility(Lifecycle.Read)
+  @pattern("^[A-Za-z0-9_-]{1,64}$")
   @minLength(1)
-  id: string;
+  @maxLength(64)
+  roomId: string;
 
   /** Room title. */
   title: string;
@@ -109,12 +115,13 @@ model ChatRoomInfo {
 
 /** Represents a room member. */
 @resource("members")
-@parentResource(ChatRoomInfo)
+@parentResource(ChatRoom)
 model ChatRoomMember {
   /** User ID of the member. */
   @key("userId")
   @visibility(Lifecycle.Read)
   @minLength(1)
+  @maxLength(64)
   userId: string;
 
   /** Room role assigned to the user within this room. */
@@ -133,7 +140,8 @@ model ChatUserProfile {
   @key("userId")
   @visibility(Lifecycle.Read)
   @minLength(1)
-  id: string;
+  @maxLength(64)
+  userId: string;
 
   /** User's display nickname. */
   nickname: string;

@@ -11,10 +11,10 @@ using Azure.Core.Traits;
 namespace WebPubSubChat;
 
 alias Operations = Azure.Core.ResourceOperations<Azure.Core.Traits.NoConditionalRequests &
-  Azure.Core.Traits.SupportsRepeatableRequests &
+  Azure.Core.Traits.NoRepeatableRequests &
   Azure.Core.Traits.NoClientRequestId>;
 
-alias NonRepeatableOperations = Azure.Core.ResourceOperations<Azure.Core.Traits.NoConditionalRequests &
+alias ConditionalOperations = Azure.Core.ResourceOperations<Azure.Core.Traits.SupportsConditionalRequests &
   Azure.Core.Traits.NoRepeatableRequests &
   Azure.Core.Traits.NoClientRequestId>;
 
@@ -27,14 +27,14 @@ interface Chat {
 
   /** Get conversation information. */
   @summary("Get conversation information.")
-  getConversation is Operations.ResourceRead<ChatConversationInfo>;
+  getConversation is Operations.ResourceRead<ChatConversation>;
 
   // --- Messages ---
 
   /** Query messages in a conversation. */
   @summary("Query messages in a conversation.")
   listMessages is Operations.ResourceList<
-    ChatMessageInfo,
+    ChatMessage,
     ListQueryParametersTrait<{
       /** Last message ID for pagination. */
       @query
@@ -53,18 +53,18 @@ interface Chat {
 
   /** Delete a message. */
   @summary("Delete a message.")
-  deleteMessage is Operations.ResourceDelete<ChatMessageInfo>;
+  deleteMessage is ConditionalOperations.ResourceDelete<ChatMessage>;
 
   /** Update a message. */
   @summary("Update a message.")
-  updateMessage is Operations.ResourceCreateOrUpdate<ChatMessageInfo>;
+  updateMessage is ConditionalOperations.ResourceCreateOrUpdate<ChatMessage>;
 
   // --- Roles ---
 
   /** Query roles in a hub. */
   @summary("Query roles in a hub.")
   listRoles is Operations.ResourceList<
-    ChatRoleInfo,
+    ChatRole,
     ListQueryParametersTrait<{
       /** Maximum number of roles to return. */
       @query
@@ -79,33 +79,33 @@ interface Chat {
 
   /** Get role information. */
   @summary("Get role information.")
-  getRole is Operations.ResourceRead<ChatRoleInfo>;
+  getRole is Operations.ResourceRead<ChatRole>;
 
   /** Create or replace a role. */
   @summary("Create or replace a role.")
-  createOrReplaceRole is Operations.ResourceCreateOrReplace<ChatRoleInfo>;
+  createOrReplaceRole is ConditionalOperations.ResourceCreateOrReplace<ChatRole>;
 
   /** Delete a role. */
   @summary("Delete a role.")
-  deleteRole is Operations.ResourceDelete<ChatRoleInfo>;
+  deleteRole is ConditionalOperations.ResourceDelete<ChatRole>;
 
   // --- Rooms ---
 
   /** Create a new room with a service-generated ID. */
   @summary("Create a new room.")
-  createRoom is NonRepeatableOperations.ResourceCreateWithServiceProvidedName<ChatRoomInfo>;
+  createRoom is Operations.ResourceCreateWithServiceProvidedName<ChatRoom>;
 
   /** Create or replace a room with a client-specified ID. */
   @summary("Create or replace a room.")
-  createOrReplaceRoom is Operations.ResourceCreateOrReplace<ChatRoomInfo>;
+  createOrReplaceRoom is ConditionalOperations.ResourceCreateOrReplace<ChatRoom>;
 
   /** Get room information. */
   @summary("Get room information.")
-  getRoom is Operations.ResourceRead<ChatRoomInfo>;
+  getRoom is Operations.ResourceRead<ChatRoom>;
 
   /** Delete a room. */
   @summary("Delete a room.")
-  deleteRoom is Operations.ResourceDelete<ChatRoomInfo>;
+  deleteRoom is Operations.ResourceDelete<ChatRoom>;
 
   // --- Room Members ---
 
@@ -127,11 +127,11 @@ interface Chat {
 
   /** Create or replace a room member. */
   @summary("Create or replace a room member.")
-  createOrReplaceRoomMember is Operations.ResourceCreateOrReplace<ChatRoomMember>;
+  createOrReplaceRoomMember is ConditionalOperations.ResourceCreateOrReplace<ChatRoomMember>;
 
   /** Delete a room member. */
   @summary("Delete a room member.")
-  deleteRoomMember is Operations.ResourceDelete<ChatRoomMember>;
+  deleteRoomMember is ConditionalOperations.ResourceDelete<ChatRoomMember>;
 
   // --- Users ---
 
@@ -141,9 +141,9 @@ interface Chat {
 
   /** Create or replace a user. */
   @summary("Create or replace a user.")
-  createOrReplaceUser is Operations.ResourceCreateOrReplace<ChatUserProfile>;
+  createOrReplaceUser is ConditionalOperations.ResourceCreateOrReplace<ChatUserProfile>;
 
   /** Delete a user. */
   @summary("Delete a user.")
-  deleteUser is Operations.ResourceDelete<ChatUserProfile>;
+  deleteUser is ConditionalOperations.ResourceDelete<ChatUserProfile>;
 }
