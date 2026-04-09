@@ -123,8 +123,8 @@
         "tags": [
           "chat"
         ],
-        "summary": "Query messages in a conversation.",
-        "description": "Query messages in a conversation.",
+        "summary": "Query messages in a conversation from latest to earliest.",
+        "description": "Query messages in a conversation from latest to earliest.",
         "parameters": [
           {
             "$ref": "#/parameters/Azure.Core.Foundations.ApiVersionParameter"
