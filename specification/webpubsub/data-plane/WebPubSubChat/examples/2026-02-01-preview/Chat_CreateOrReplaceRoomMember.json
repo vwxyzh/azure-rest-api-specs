@@ -12,14 +12,14 @@
   "responses": {
     "200": {
       "body": {
-        "id": "user1",
+        "userId": "user1",
         "roleName": "room.member",
         "etag": "etag2"
       }
     },
     "201": {
       "body": {
-        "id": "user1",
+        "userId": "user1",
         "roleName": "room.member",
         "etag": "etag3"
       }

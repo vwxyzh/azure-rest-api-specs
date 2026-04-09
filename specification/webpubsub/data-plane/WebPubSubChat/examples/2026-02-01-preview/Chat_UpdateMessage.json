@@ -2,7 +2,7 @@
   "parameters": {
     "api-version": "2026-02-01-preview",
     "hub": "chat_hub",
-    "conversationId": "c.room1",
+    "conversationId": "c.room1.abcd1234",
     "messageId": "123",
     "contentType": "application/merge-patch+json",
     "resource": {
@@ -23,17 +23,6 @@
         },
         "createdAt": "2026-01-01T00:00:00Z",
         "etag": "etag2"
-      }
-    },
-    "201": {
-      "body": {
-        "id": "123",
-        "createdBy": "user1",
-        "content": {
-          "text": "Updated message text"
-        },
-        "createdAt": "2026-02-01T00:00:00Z",
-        "etag": "etag3"
       }
     }
   },

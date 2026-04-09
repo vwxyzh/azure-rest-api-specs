@@ -55,6 +55,9 @@ model ChatMessage {
   id: string;
 
   /** User who created the message. */
+  @pattern("^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$")
+  @minLength(1)
+  @maxLength(64)
   createdBy: string;
 
   /** Message content. */
@@ -124,6 +127,7 @@ model ChatRoomMember {
   /** User ID of the member. */
   @key("userId")
   @visibility(Lifecycle.Read)
+  @pattern("^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$")
   @minLength(1)
   @maxLength(64)
   userId: string;
@@ -146,13 +150,13 @@ model ChatUserProfile {
   /** User identifier. */
   @key("userId")
   @visibility(Lifecycle.Read)
-  @pattern("^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$")
+  @pattern("^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$")
   @minLength(1)
   @maxLength(64)
   id: string;
 
   /** User's display nickname. */
-  @pattern("^[^\\p{Cc}\\p{Cs}]{1,64}$")
+  @pattern("^[^\\p{Cc}]{1,64}$")
   @minLength(1)
   @maxLength(64)
   nickname: string;

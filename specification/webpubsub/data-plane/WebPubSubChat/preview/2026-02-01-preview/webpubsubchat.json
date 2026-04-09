@@ -1068,7 +1068,8 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64
+            "maxLength": 64,
+            "pattern": "^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -1174,7 +1175,8 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64
+            "maxLength": 64,
+            "pattern": "^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -1243,7 +1245,7 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 64,
-            "pattern": "^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$"
+            "pattern": "^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$"
           }
         ],
         "responses": {
@@ -1301,7 +1303,7 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 64,
-            "pattern": "^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$"
+            "pattern": "^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -1398,7 +1400,7 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 64,
-            "pattern": "^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$"
+            "pattern": "^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -1541,7 +1543,10 @@
         },
         "createdBy": {
           "type": "string",
-          "description": "User who created the message."
+          "description": "User who created the message.",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$"
         },
         "content": {
           "$ref": "#/definitions/MessageContent",
@@ -1573,7 +1578,10 @@
       "properties": {
         "createdBy": {
           "type": "string",
-          "description": "User who created the message."
+          "description": "User who created the message.",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$"
         },
         "content": {
           "$ref": "#/definitions/MessageContent",
@@ -1655,6 +1663,7 @@
           "description": "User ID of the member.",
           "minLength": 1,
           "maxLength": 64,
+          "pattern": "^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$",
           "readOnly": true
         },
         "roleName": {
@@ -1685,7 +1694,7 @@
           "description": "User identifier.",
           "minLength": 1,
           "maxLength": 64,
-          "pattern": "^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$",
+          "pattern": "^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$",
           "readOnly": true
         },
         "nickname": {
@@ -1693,7 +1702,7 @@
           "description": "User's display nickname.",
           "minLength": 1,
           "maxLength": 64,
-          "pattern": "^[^\\p{Cc}\\p{Cs}]{1,64}$"
+          "pattern": "^[^\\p{Cc}]{1,64}$"
         },
         "roleName": {
           "type": "string",
