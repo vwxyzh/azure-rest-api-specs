@@ -31,8 +31,8 @@ interface Chat {
 
   // --- Messages ---
 
-  /** Query messages in a conversation. */
-  @summary("Query messages in a conversation.")
+  /** Query messages in a conversation from latest to earliest. */
+  @summary("Query messages in a conversation from latest to earliest.")
   listMessages is Operations.ResourceList<
     ChatMessage,
     ListQueryParametersTrait<{

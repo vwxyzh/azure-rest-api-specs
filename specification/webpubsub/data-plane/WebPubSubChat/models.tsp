@@ -83,7 +83,7 @@ model ChatRole {
   /** Role name. Must start with 'user.' or 'room.' prefix. */
   @key("roleName")
   @visibility(Lifecycle.Read)
-  @pattern("^[a-z0-9_.-]{1,64}$")
+  @pattern("^(?:room|user)\\.[a-z0-9_-]{1,59}$")
   @minLength(1)
   @maxLength(64)
   name: string;
@@ -133,7 +133,7 @@ model ChatRoomMember {
   userId: string;
 
   /** Room role assigned to the user within this room. */
-  @pattern("^[a-z0-9_.-]{1,64}$")
+  @pattern("^room\\.[a-z0-9_-]{1,59}$")
   @minLength(1)
   @maxLength(64)
   roleName: string;
@@ -162,7 +162,7 @@ model ChatUserProfile {
   nickname: string;
 
   /** Global user role assigned to the user. */
-  @pattern("^[a-z0-9_.-]{1,64}$")
+  @pattern("^user\\.[a-z0-9_-]{1,59}$")
   @minLength(1)
   @maxLength(64)
   roleName: string;

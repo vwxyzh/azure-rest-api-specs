@@ -474,7 +474,7 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 64,
-            "pattern": "^[a-z0-9_.-]{1,64}$"
+            "pattern": "^(?:room|user)\\.[a-z0-9_-]{1,59}$"
           }
         ],
         "responses": {
@@ -532,7 +532,7 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 64,
-            "pattern": "^[a-z0-9_.-]{1,64}$"
+            "pattern": "^(?:room|user)\\.[a-z0-9_-]{1,59}$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -629,7 +629,7 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 64,
-            "pattern": "^[a-z0-9_.-]{1,64}$"
+            "pattern": "^(?:room|user)\\.[a-z0-9_-]{1,59}$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -1598,7 +1598,7 @@
           "description": "Role name. Must start with 'user.' or 'room.' prefix.",
           "minLength": 1,
           "maxLength": 64,
-          "pattern": "^[a-z0-9_.-]{1,64}$",
+          "pattern": "^(?:room|user)\\.[a-z0-9_-]{1,59}$",
           "readOnly": true
         },
         "permissions": {
@@ -1671,7 +1671,7 @@
           "description": "Room role assigned to the user within this room.",
           "minLength": 1,
           "maxLength": 64,
-          "pattern": "^[a-z0-9_.-]{1,64}$"
+          "pattern": "^room\\.[a-z0-9_-]{1,59}$"
         },
         "etag": {
           "type": "string",
@@ -1709,7 +1709,7 @@
           "description": "Global user role assigned to the user.",
           "minLength": 1,
           "maxLength": 64,
-          "pattern": "^[a-z0-9_.-]{1,64}$"
+          "pattern": "^user\\.[a-z0-9_-]{1,59}$"
         },
         "etag": {
           "type": "string",
