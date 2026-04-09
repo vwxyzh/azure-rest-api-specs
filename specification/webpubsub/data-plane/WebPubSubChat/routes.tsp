@@ -36,18 +36,21 @@ interface Chat {
   listMessages is Operations.ResourceList<
     ChatMessage,
     ListQueryParametersTrait<{
-      /** Last message ID for pagination. */
+      /** Latest message ID (exclusive) for pagination. */
       @query
-      lastMessageId?: string;
+      @pattern("^\\d+$")
+      @minLength(1)
+      @maxLength(128)
+      latestMessageId?: string;
 
-      /** First message ID for pagination. */
+      /** Earliest message ID (exclusive) for pagination. */
       @query
-      firstMessageId?: string;
+      @pattern("^\\d+$")
+      @minLength(1)
+      @maxLength(128)
+      earliestMessageId?: string;
 
-      /** Maximum number of messages to return. */
-      @query
-      @pageSize
-      maxpagesize?: int32;
+      ...MaxPageSizeQueryParameter;
     }>
   >;
 
@@ -57,7 +60,7 @@ interface Chat {
 
   /** Update a message. */
   @summary("Update a message.")
-  updateMessage is ConditionalOperations.ResourceCreateOrUpdate<ChatMessage>;
+  updateMessage is ConditionalOperations.ResourceUpdate<ChatMessage>;
 
   // --- Roles ---
 
@@ -66,14 +69,12 @@ interface Chat {
   listRoles is Operations.ResourceList<
     ChatRole,
     ListQueryParametersTrait<{
-      /** Maximum number of roles to return. */
-      @query
-      @pageSize
-      maxpagesize?: int32;
+      ...MaxPageSizeQueryParameter;
 
       /** Continuation token for pagination. */
       @query
       @continuationToken
+      @minLength(1)
       continuationToken?: string;
     }>
   >;
@@ -106,7 +107,7 @@ interface Chat {
 
   /** Delete a room. */
   @summary("Delete a room.")
-  deleteRoom is Operations.ResourceDelete<ChatRoom>;
+  deleteRoom is ConditionalOperations.ResourceDelete<ChatRoom>;
 
   // --- Room Members ---
 
@@ -115,14 +116,12 @@ interface Chat {
   listRoomMembers is Operations.ResourceList<
     ChatRoomMember,
     ListQueryParametersTrait<{
-      /** Maximum number of members to return. */
-      @query
-      @pageSize
-      maxpagesize?: int32;
+      ...MaxPageSizeQueryParameter;
 
       /** Continuation token for pagination. */
       @query
       @continuationToken
+      @minLength(1)
       continuationToken?: string;
     }>
   >;

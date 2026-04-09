@@ -29,8 +29,10 @@ model ChatConversation {
   /** Conversation identifier. */
   @key("conversationId")
   @visibility(Lifecycle.Read)
+  @pattern("^c\\.[A-Za-z0-9_-]{1,64}\\.[A-Za-z0-9_-]{1,64}$")
   @minLength(1)
-  conversationId: string;
+  @maxLength(131)
+  id: string;
 
   /** Parent room identifier. */
   parentRoom: string;
@@ -47,14 +49,16 @@ model ChatMessage {
   /** Message identifier. */
   @key("messageId")
   @visibility(Lifecycle.Read)
+  @pattern("^\\d+$")
   @minLength(1)
-  messageId: string;
+  @maxLength(128)
+  id: string;
 
   /** User who created the message. */
   createdBy: string;
 
   /** Message content. */
-  content: ContentBody;
+  content: MessageContent;
 
   /** Timestamp when the message was created. */
   @visibility(Lifecycle.Read)
@@ -74,12 +78,12 @@ model ChatMessage {
 @parentResource(Hub)
 model ChatRole {
   /** Role name. Must start with 'user.' or 'room.' prefix. */
-  @key("role")
+  @key("roleName")
   @visibility(Lifecycle.Read)
   @pattern("^[a-z0-9_.-]{1,64}$")
   @minLength(1)
   @maxLength(64)
-  role: string;
+  name: string;
 
   /** Permissions associated with the role. Do not mix user permissions and room permissions in one role. */
   permissions: string[];
@@ -99,7 +103,7 @@ model ChatRoom {
   @pattern("^[A-Za-z0-9_-]{1,64}$")
   @minLength(1)
   @maxLength(64)
-  roomId: string;
+  id: string;
 
   /** Room title. */
   title: string;
@@ -125,7 +129,10 @@ model ChatRoomMember {
   userId: string;
 
   /** Room role assigned to the user within this room. */
-  role: string;
+  @pattern("^[a-z0-9_.-]{1,64}$")
+  @minLength(1)
+  @maxLength(64)
+  roleName: string;
 
   /** ETag for concurrency control. */
   @visibility(Lifecycle.Read)
@@ -139,15 +146,22 @@ model ChatUserProfile {
   /** User identifier. */
   @key("userId")
   @visibility(Lifecycle.Read)
+  @pattern("^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$")
   @minLength(1)
   @maxLength(64)
-  userId: string;
+  id: string;
 
   /** User's display nickname. */
+  @pattern("^[^\\p{Cc}\\p{Cs}]{1,64}$")
+  @minLength(1)
+  @maxLength(64)
   nickname: string;
 
   /** Global user role assigned to the user. */
-  role?: string;
+  @pattern("^[a-z0-9_.-]{1,64}$")
+  @minLength(1)
+  @maxLength(64)
+  roleName: string;
 
   /** ETag for concurrency control. */
   @visibility(Lifecycle.Read)
@@ -155,7 +169,7 @@ model ChatUserProfile {
 }
 
 /** Message content body. */
-model ContentBody {
+model MessageContent {
   /** Text content. */
   text?: string;
 

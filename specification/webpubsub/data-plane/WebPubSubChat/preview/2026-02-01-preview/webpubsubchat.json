@@ -85,7 +85,9 @@
             "description": "Conversation identifier.",
             "required": true,
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 131,
+            "pattern": "^c\\.[A-Za-z0-9_-]{1,64}\\.[A-Za-z0-9_-]{1,64}$"
           }
         ],
         "responses": {
@@ -143,29 +145,32 @@
             "description": "Conversation identifier.",
             "required": true,
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 131,
+            "pattern": "^c\\.[A-Za-z0-9_-]{1,64}\\.[A-Za-z0-9_-]{1,64}$"
           },
           {
-            "name": "lastMessageId",
+            "name": "latestMessageId",
             "in": "query",
-            "description": "Last message ID for pagination.",
+            "description": "Latest message ID (exclusive) for pagination.",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^\\d+$"
           },
           {
-            "name": "firstMessageId",
+            "name": "earliestMessageId",
             "in": "query",
-            "description": "First message ID for pagination.",
+            "description": "Earliest message ID (exclusive) for pagination.",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^\\d+$"
           },
           {
-            "name": "maxpagesize",
-            "in": "query",
-            "description": "Maximum number of messages to return.",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
           }
         ],
         "responses": {
@@ -229,7 +234,9 @@
             "description": "Conversation identifier.",
             "required": true,
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 131,
+            "pattern": "^c\\.[A-Za-z0-9_-]{1,64}\\.[A-Za-z0-9_-]{1,64}$"
           },
           {
             "name": "messageId",
@@ -237,7 +244,9 @@
             "description": "Message identifier.",
             "required": true,
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^\\d+$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -257,25 +266,13 @@
             "description": "The resource instance.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ChatMessageCreateOrUpdate"
+              "$ref": "#/definitions/ChatMessageUpdate"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "The request has succeeded.",
-            "schema": {
-              "$ref": "#/definitions/ChatMessage"
-            },
-            "headers": {
-              "ETag": {
-                "type": "string",
-                "description": "The entity tag for the response."
-              }
-            }
-          },
-          "201": {
-            "description": "The request has succeeded and a new resource has been created as a result.",
             "schema": {
               "$ref": "#/definitions/ChatMessage"
             },
@@ -332,7 +329,9 @@
             "description": "Conversation identifier.",
             "required": true,
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 131,
+            "pattern": "^c\\.[A-Za-z0-9_-]{1,64}\\.[A-Za-z0-9_-]{1,64}$"
           },
           {
             "name": "messageId",
@@ -340,7 +339,9 @@
             "description": "Message identifier.",
             "required": true,
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^\\d+$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -402,19 +403,15 @@
             "pattern": "^[A-Za-z][A-Za-z0-9_`,.[\\]]{0,127}$"
           },
           {
-            "name": "maxpagesize",
-            "in": "query",
-            "description": "Maximum number of roles to return.",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
           },
           {
             "name": "continuationToken",
             "in": "query",
             "description": "Continuation token for pagination.",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           }
         ],
         "responses": {
@@ -447,7 +444,7 @@
         }
       }
     },
-    "/api/hubs/{hub}/chat/roles/{role}": {
+    "/api/hubs/{hub}/chat/roles/{roleName}": {
       "get": {
         "operationId": "Chat_GetRole",
         "tags": [
@@ -470,7 +467,7 @@
             "pattern": "^[A-Za-z][A-Za-z0-9_`,.[\\]]{0,127}$"
           },
           {
-            "name": "role",
+            "name": "roleName",
             "in": "path",
             "description": "Role name. Must start with 'user.' or 'room.' prefix.",
             "required": true,
@@ -528,7 +525,7 @@
             "pattern": "^[A-Za-z][A-Za-z0-9_`,.[\\]]{0,127}$"
           },
           {
-            "name": "role",
+            "name": "roleName",
             "in": "path",
             "description": "Role name. Must start with 'user.' or 'room.' prefix.",
             "required": true,
@@ -625,7 +622,7 @@
             "pattern": "^[A-Za-z][A-Za-z0-9_`,.[\\]]{0,127}$"
           },
           {
-            "name": "role",
+            "name": "roleName",
             "in": "path",
             "description": "Role name. Must start with 'user.' or 'room.' prefix.",
             "required": true,
@@ -920,6 +917,18 @@
             "minLength": 1,
             "maxLength": 64,
             "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifNoneMatch"
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifUnmodifiedSince"
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifModifiedSince"
           }
         ],
         "responses": {
@@ -979,19 +988,15 @@
             "pattern": "^[A-Za-z0-9_-]{1,64}$"
           },
           {
-            "name": "maxpagesize",
-            "in": "query",
-            "description": "Maximum number of members to return.",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
           },
           {
             "name": "continuationToken",
             "in": "query",
             "description": "Continuation token for pagination.",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           }
         ],
         "responses": {
@@ -1237,7 +1242,8 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64
+            "maxLength": 64,
+            "pattern": "^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$"
           }
         ],
         "responses": {
@@ -1294,7 +1300,8 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64
+            "maxLength": 64,
+            "pattern": "^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -1390,7 +1397,8 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64
+            "maxLength": 64,
+            "pattern": "^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$"
           },
           {
             "$ref": "#/parameters/Azure.Core.ConditionalRequestHeaders.ifMatch"
@@ -1495,10 +1503,12 @@
       "type": "object",
       "description": "Represents a chat conversation.",
       "properties": {
-        "conversationId": {
+        "id": {
           "type": "string",
           "description": "Conversation identifier.",
           "minLength": 1,
+          "maxLength": 131,
+          "pattern": "^c\\.[A-Za-z0-9_-]{1,64}\\.[A-Za-z0-9_-]{1,64}$",
           "readOnly": true
         },
         "parentRoom": {
@@ -1512,7 +1522,7 @@
         }
       },
       "required": [
-        "conversationId",
+        "id",
         "parentRoom",
         "etag"
       ]
@@ -1521,10 +1531,12 @@
       "type": "object",
       "description": "Represents a chat message.",
       "properties": {
-        "messageId": {
+        "id": {
           "type": "string",
           "description": "Message identifier.",
           "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^\\d+$",
           "readOnly": true
         },
         "createdBy": {
@@ -1532,7 +1544,7 @@
           "description": "User who created the message."
         },
         "content": {
-          "$ref": "#/definitions/ContentBody",
+          "$ref": "#/definitions/MessageContent",
           "description": "Message content."
         },
         "createdAt": {
@@ -1548,14 +1560,14 @@
         }
       },
       "required": [
-        "messageId",
+        "id",
         "createdBy",
         "content",
         "createdAt",
         "etag"
       ]
     },
-    "ChatMessageCreateOrUpdate": {
+    "ChatMessageUpdate": {
       "type": "object",
       "description": "Represents a chat message.",
       "properties": {
@@ -1564,7 +1576,7 @@
           "description": "User who created the message."
         },
         "content": {
-          "$ref": "#/definitions/ContentBody",
+          "$ref": "#/definitions/MessageContent",
           "description": "Message content."
         }
       }
@@ -1573,7 +1585,7 @@
       "type": "object",
       "description": "Represents a chat role.\nA role name must start with 'user.' or 'room.' prefix.\nA role must contain either user permissions or room permissions, but not both.",
       "properties": {
-        "role": {
+        "name": {
           "type": "string",
           "description": "Role name. Must start with 'user.' or 'room.' prefix.",
           "minLength": 1,
@@ -1595,7 +1607,7 @@
         }
       },
       "required": [
-        "role",
+        "name",
         "permissions",
         "etag"
       ]
@@ -1604,7 +1616,7 @@
       "type": "object",
       "description": "Represents a chat room.",
       "properties": {
-        "roomId": {
+        "id": {
           "type": "string",
           "description": "Room identifier.",
           "minLength": 1,
@@ -1628,7 +1640,7 @@
         }
       },
       "required": [
-        "roomId",
+        "id",
         "title",
         "defaultConversation",
         "etag"
@@ -1645,9 +1657,12 @@
           "maxLength": 64,
           "readOnly": true
         },
-        "role": {
+        "roleName": {
           "type": "string",
-          "description": "Room role assigned to the user within this room."
+          "description": "Room role assigned to the user within this room.",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9_.-]{1,64}$"
         },
         "etag": {
           "type": "string",
@@ -1657,7 +1672,7 @@
       },
       "required": [
         "userId",
-        "role",
+        "roleName",
         "etag"
       ]
     },
@@ -1665,20 +1680,27 @@
       "type": "object",
       "description": "Represents a user profile in the chat system.",
       "properties": {
-        "userId": {
+        "id": {
           "type": "string",
           "description": "User identifier.",
           "minLength": 1,
           "maxLength": 64,
+          "pattern": "^[^\\p{Cc}\\p{Cs}\\/\\\\#?:;]{1,64}$",
           "readOnly": true
         },
         "nickname": {
           "type": "string",
-          "description": "User's display nickname."
+          "description": "User's display nickname.",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[^\\p{Cc}\\p{Cs}]{1,64}$"
         },
-        "role": {
+        "roleName": {
           "type": "string",
-          "description": "Global user role assigned to the user."
+          "description": "Global user role assigned to the user.",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9_.-]{1,64}$"
         },
         "etag": {
           "type": "string",
@@ -1687,25 +1709,11 @@
         }
       },
       "required": [
-        "userId",
+        "id",
         "nickname",
+        "roleName",
         "etag"
       ]
-    },
-    "ContentBody": {
-      "type": "object",
-      "description": "Message content body.",
-      "properties": {
-        "text": {
-          "type": "string",
-          "description": "Text content."
-        },
-        "binary": {
-          "type": "string",
-          "format": "byte",
-          "description": "Binary content (base64 encoded)."
-        }
-      }
     },
     "Hub": {
       "type": "object",
@@ -1723,6 +1731,21 @@
       "required": [
         "hub"
       ]
+    },
+    "MessageContent": {
+      "type": "object",
+      "description": "Message content body.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Text content."
+        },
+        "binary": {
+          "type": "string",
+          "format": "byte",
+          "description": "Binary content (base64 encoded)."
+        }
+      }
     },
     "PagedChatMessage": {
       "type": "object",
@@ -1836,6 +1859,15 @@
       "minLength": 1,
       "x-ms-parameter-location": "method",
       "x-ms-client-name": "apiVersion"
+    },
+    "Azure.Core.MaxPageSizeQueryParameter": {
+      "name": "maxpagesize",
+      "in": "query",
+      "description": "The maximum number of result items per page.",
+      "required": false,
+      "type": "integer",
+      "format": "int32",
+      "x-ms-parameter-location": "method"
     }
   }
 }
