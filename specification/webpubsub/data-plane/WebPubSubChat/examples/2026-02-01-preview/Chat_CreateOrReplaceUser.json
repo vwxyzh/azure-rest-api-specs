@@ -5,25 +5,25 @@
     "userId": "user1",
     "resource": {
       "nickname": "John",
-      "role": "user.normal"
+      "roleName": "user.normal"
     },
-    "if-match": "etag0"
+    "if-match": "etag1"
   },
   "responses": {
     "200": {
       "body": {
-        "userId": "user1",
+        "id": "user1",
         "nickname": "John",
-        "role": "user.normal",
-        "etag": "etag1"
+        "roleName": "user.normal",
+        "etag": "etag2"
       }
     },
     "201": {
       "body": {
-        "userId": "user1",
+        "id": "user1",
         "nickname": "John",
-        "role": "user.normal",
-        "etag": "etag1"
+        "roleName": "user.normal",
+        "etag": "etag3"
       }
     }
   },

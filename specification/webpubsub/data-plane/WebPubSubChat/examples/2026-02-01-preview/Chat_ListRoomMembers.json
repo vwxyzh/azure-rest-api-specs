@@ -11,12 +11,12 @@
         "value": [
           {
             "userId": "user1",
-            "role": "room.operator",
+            "roleName": "room.operator",
             "etag": "etag1"
           },
           {
             "userId": "user2",
-            "role": "room.member",
+            "roleName": "room.member",
             "etag": "etag2"
           }
         ]

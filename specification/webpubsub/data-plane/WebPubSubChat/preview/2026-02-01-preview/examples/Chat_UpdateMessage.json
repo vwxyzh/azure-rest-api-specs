@@ -3,7 +3,7 @@
     "api-version": "2026-02-01-preview",
     "hub": "chat_hub",
     "conversationId": "c.room1",
-    "messageId": "msg1",
+    "messageId": "123",
     "contentType": "application/merge-patch+json",
     "resource": {
       "createdBy": "user1",
@@ -16,24 +16,24 @@
   "responses": {
     "200": {
       "body": {
-        "messageId": "msg1",
+        "id": "123",
         "createdBy": "user1",
         "content": {
           "text": "Updated message text"
         },
         "createdAt": "2026-01-01T00:00:00Z",
-        "etag": "etag1"
+        "etag": "etag2"
       }
     },
     "201": {
       "body": {
-        "messageId": "msg1",
+        "id": "123",
         "createdBy": "user1",
         "content": {
           "text": "Updated message text"
         },
-        "createdAt": "2026-01-01T00:00:00Z",
-        "etag": "etag1"
+        "createdAt": "2026-02-01T00:00:00Z",
+        "etag": "etag3"
       }
     }
   },

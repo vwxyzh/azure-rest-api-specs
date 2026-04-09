@@ -10,7 +10,7 @@
       "body": {
         "value": [
           {
-            "messageId": "msg1",
+            "id": "123",
             "createdBy": "user1",
             "content": {
               "text": "Hello world"

@@ -5,23 +5,23 @@
     "roomId": "room1",
     "userId": "user1",
     "resource": {
-      "role": "room.member"
+      "roleName": "room.member"
     },
-    "if-match": "etag0"
+    "if-match": "etag1"
   },
   "responses": {
     "200": {
       "body": {
-        "userId": "user1",
-        "role": "room.member",
-        "etag": "etag1"
+        "id": "user1",
+        "roleName": "room.member",
+        "etag": "etag2"
       }
     },
     "201": {
       "body": {
-        "userId": "user1",
-        "role": "room.member",
-        "etag": "etag1"
+        "id": "user1",
+        "roleName": "room.member",
+        "etag": "etag3"
       }
     }
   },

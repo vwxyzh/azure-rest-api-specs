@@ -9,7 +9,7 @@
       "body": {
         "value": [
           {
-            "role": "user.normal",
+            "name": "user.normal",
             "permissions": [
               "user.update_own_info",
               "user.create_room",
@@ -19,7 +19,7 @@
             "etag": "etag1"
           },
           {
-            "role": "room.member",
+            "name": "room.member",
             "permissions": [
               "room.leave",
               "room.history",
@@ -31,7 +31,7 @@
             "etag": "etag2"
           },
           {
-            "role": "room.operator",
+            "name": "room.operator",
             "permissions": [
               "room.invite",
               "room.leave",

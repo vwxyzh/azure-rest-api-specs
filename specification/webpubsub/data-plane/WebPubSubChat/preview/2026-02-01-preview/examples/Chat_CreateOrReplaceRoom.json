@@ -6,23 +6,23 @@
     "resource": {
       "title": "General Chat"
     },
-    "if-match": "etag0"
+    "if-match": "etag1"
   },
   "responses": {
     "200": {
       "body": {
-        "roomId": "room1",
+        "id": "room1",
         "title": "General Chat",
         "defaultConversation": "c.room1.abcd1234",
-        "etag": "etag1"
+        "etag": "etag2"
       }
     },
     "201": {
       "body": {
-        "roomId": "room1",
+        "id": "room1",
         "title": "General Chat",
         "defaultConversation": "c.room1.abcd1234",
-        "etag": "etag1"
+        "etag": "etag3"
       }
     }
   },
