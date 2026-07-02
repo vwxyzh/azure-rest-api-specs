@@ -93,6 +93,9 @@ interface Chat {
 
   // --- Rooms ---
 
+  /** List rooms with pagination */
+
+
   /** Create or replace a room with a client-specified ID. */
   @summary("Create or replace a room.")
   createOrReplaceRoom is ConditionalOperations.ResourceCreateOrReplace<ChatRoom>;
@@ -130,6 +133,14 @@ interface Chat {
   @summary("Delete a room member.")
   deleteRoomMember is ConditionalOperations.ResourceDelete<ChatRoomMember>;
 
+  // --- Conversation ---
+
+  /** List conversations with pagination */
+
+  /** Create or replace a conversation */
+
+  /** Delete a conversation */
+
   // --- Users ---
 
   /** Get a user's profile. The response is a polymorphic `ChatUser` (e.g. `HumanChatUser`) selected by the `kind` discriminator. */
@@ -143,4 +154,6 @@ interface Chat {
   /** Delete a user. */
   @summary("Delete a user.")
   deleteUser is ConditionalOperations.ResourceDelete<ChatUser>;
+
+  /** List rooms for a user. */
 }
