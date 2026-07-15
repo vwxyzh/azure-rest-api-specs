@@ -93,8 +93,20 @@ interface Chat {
 
   // --- Rooms ---
 
-  /** List rooms with pagination */
+  /** List rooms with pagination. */
+  @summary("List rooms with pagination.")
+  listRooms is Operations.ResourceList<
+    ChatRoom,
+    ListQueryParametersTrait<{
+      ...MaxPageSizeQueryParameter;
 
+      /** Continuation token for pagination. */
+      @query
+      @continuationToken
+      @minLength(1)
+      continuationToken?: string;
+    }>
+  >;
 
   /** Create or replace a room with a client-specified ID. */
   @summary("Create or replace a room.")
@@ -107,6 +119,39 @@ interface Chat {
   /** Delete a room. */
   @summary("Delete a room.")
   deleteRoom is ConditionalOperations.ResourceDelete<ChatRoom>;
+
+  // --- Topics ---
+
+  /** List topics in a room with pagination. */
+  @summary("List topics in a room with pagination.")
+  listTopics is Operations.ResourceList<
+    ChatTopic,
+    ListQueryParametersTrait<{
+      ...MaxPageSizeQueryParameter;
+
+      /** Continuation token for pagination. */
+      @query
+      @continuationToken
+      @minLength(1)
+      continuationToken?: string;
+    }>
+  >;
+
+  /** Create or replace a topic with a client-specified ID. */
+  @summary("Create or replace a topic.")
+  createOrReplaceTopic is ConditionalOperations.ResourceCreateOrReplace<ChatTopic>;
+
+  /** Get topic information. */
+  @summary("Get topic information.")
+  getTopic is Operations.ResourceRead<ChatTopic>;
+
+  /** Update a topic. */
+  @summary("Update a topic.")
+  updateTopic is ConditionalOperations.ResourceUpdate<ChatTopic>;
+
+  /** Soft delete a topic. */
+  @summary("Soft delete a topic.")
+  deleteTopic is ConditionalOperations.ResourceDelete<ChatTopic>;
 
   // --- Room Members ---
 
@@ -133,15 +178,22 @@ interface Chat {
   @summary("Delete a room member.")
   deleteRoomMember is ConditionalOperations.ResourceDelete<ChatRoomMember>;
 
-  // --- Conversation ---
-
-  /** List conversations with pagination */
-
-  /** Create or replace a conversation */
-
-  /** Delete a conversation */
-
   // --- Users ---
+
+  /** List all users with pagination. */
+  @summary("List all users with pagination.")
+  listUsers is Operations.ResourceList<
+    ChatUser,
+    ListQueryParametersTrait<{
+      ...MaxPageSizeQueryParameter;
+
+      /** Continuation token for pagination. */
+      @query
+      @continuationToken
+      @minLength(1)
+      continuationToken?: string;
+    }>
+  >;
 
   /** Get a user's profile. The response is a polymorphic `ChatUser` (e.g. `HumanChatUser`) selected by the `kind` discriminator. */
   @summary("Get a user's profile.")
@@ -155,5 +207,36 @@ interface Chat {
   @summary("Delete a user.")
   deleteUser is ConditionalOperations.ResourceDelete<ChatUser>;
 
-  /** List rooms for a user. */
+  /** List rooms for a user with pagination. */
+  @summary("List rooms for a user with pagination.")
+  @route("/api/hubs/{hub}/chat/users/{userId}/rooms")
+  @get
+  @list
+  listRoomsForUser is Azure.Core.Foundations.Operation<
+    {
+      /** Target hub name. */
+      @path
+      @pattern("^[A-Za-z][A-Za-z0-9_`,.[\\]]{0,127}$")
+      @minLength(1)
+      @maxLength(128)
+      hub: string;
+
+      /** User identifier. */
+      @path
+      @pattern("^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$")
+      @minLength(1)
+      @maxLength(64)
+      userId: string;
+
+      /** Maximum number of items to include in a page. */
+      ...MaxPageSizeQueryParameter;
+
+      /** Continuation token for pagination. */
+      @query
+      @continuationToken
+      @minLength(1)
+      continuationToken?: string;
+    },
+    Azure.Core.Page<ChatRoom>
+  >;
 }
