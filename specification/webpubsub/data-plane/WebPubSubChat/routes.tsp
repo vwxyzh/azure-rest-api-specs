@@ -209,18 +209,10 @@ interface Chat {
 
   /** List rooms for a user with pagination. */
   @summary("List rooms for a user with pagination.")
-  @route("/api/hubs/{hub}/chat/users/{userId}/rooms")
-  @listsResource(ChatRoom)
+  @listsResource(ChatUserRoom)
   listRoomsForUser is Azure.Core.Foundations.ResourceList<
-    ChatRoom,
+    ChatUserRoom,
     {
-      /** User identifier. */
-      @path
-      @pattern("^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$")
-      @minLength(1)
-      @maxLength(64)
-      userId: string;
-
       /** Maximum number of items to include in a page. */
       ...MaxPageSizeQueryParameter;
 
@@ -229,7 +221,6 @@ interface Chat {
       @continuationToken
       @minLength(1)
       continuationToken?: string;
-    },
-    UserChatRoomsPage
+    }
   >;
 }

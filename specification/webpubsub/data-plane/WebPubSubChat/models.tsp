@@ -112,17 +112,6 @@ model ChatRoom {
   ...EtagProperty;
 }
 
-/** A paginated collection of rooms associated with a user. */
-model UserChatRoomsPage {
-  /** Rooms associated with the user. */
-  @pageItems
-  value: ChatRoom[];
-
-  /** Link to the next page of rooms. */
-  @nextLink
-  nextLink?: string;
-}
-
 /** The lifecycle state of a chat topic. */
 union ChatTopicState {
   string,
@@ -235,6 +224,11 @@ model ChatUser {
 
   ...EtagProperty;
 }
+
+/** Represents a room associated with a user. */
+@resource("rooms")
+@parentResource(ChatUser)
+model ChatUserRoom extends ChatRoom {}
 
 /** A human end-user, identified by a user role. */
 model HumanChatUser extends ChatUser {
