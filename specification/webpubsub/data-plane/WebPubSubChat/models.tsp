@@ -112,6 +112,62 @@ model ChatRoom {
   ...EtagProperty;
 }
 
+/** The lifecycle state of a chat topic. */
+union ChatTopicState {
+  string,
+
+  /** The topic is active. */
+  Normal: "Normal",
+
+  /** The topic is archived. */
+  Archived: "Archived",
+
+  /** The topic has been soft deleted. */
+  SoftDeleted: "SoftDeleted",
+}
+
+/** Represents a chat topic in a room. */
+@resource("topics")
+@parentResource(ChatRoom)
+model ChatTopic {
+  /** Topic identifier unique within the room. */
+  @key("topicId")
+  @visibility(Lifecycle.Read)
+  @pattern("^[A-Za-z0-9_-]{1,64}$")
+  @minLength(1)
+  @maxLength(64)
+  id: string;
+
+  /** Topic title. */
+  @minLength(1)
+  @maxLength(256)
+  title: string;
+
+  /** Timestamp when the topic was created. */
+  @visibility(Lifecycle.Read)
+  createdAt: utcDateTime;
+
+  /** User who created the topic. */
+  @visibility(Lifecycle.Read)
+  @pattern("^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$")
+  @minLength(1)
+  @maxLength(64)
+  createdBy: string;
+
+  /** Current lifecycle state of the topic. */
+  @visibility(Lifecycle.Read, Lifecycle.Update)
+  state: ChatTopicState;
+
+  /** Conversation associated with this topic. */
+  @visibility(Lifecycle.Read)
+  @pattern("^c\\.[A-Za-z0-9_-]{1,64}\\.[A-Za-z0-9_-]{1,64}$")
+  @minLength(1)
+  @maxLength(131)
+  conversationId: string;
+
+  ...EtagProperty;
+}
+
 /** Represents a room member. */
 @resource("members")
 @parentResource(ChatRoom)
@@ -168,6 +224,11 @@ model ChatUser {
 
   ...EtagProperty;
 }
+
+/** Represents a room associated with a user. */
+@resource("rooms")
+@parentResource(ChatUser)
+model ChatUserRoom is ChatRoom;
 
 /** A human end-user, identified by a user role. */
 model HumanChatUser extends ChatUser {
