@@ -210,9 +210,9 @@ interface Chat {
   /** List rooms for a user with pagination. */
   @summary("List rooms for a user with pagination.")
   @route("/api/hubs/{hub}/chat/users/{userId}/rooms")
-  @get
-  @list
-  listRoomsForUser is Azure.Core.Foundations.Operation<
+  @listsResource(ChatRoom)
+  listRoomsForUser is Azure.Core.Foundations.ResourceList<
+    ChatRoom,
     {
       /** Target hub name. */
       @path
@@ -237,6 +237,6 @@ interface Chat {
       @minLength(1)
       continuationToken?: string;
     },
-    Azure.Core.Page<ChatRoom>
+    UserChatRoomsPage
   >;
 }
