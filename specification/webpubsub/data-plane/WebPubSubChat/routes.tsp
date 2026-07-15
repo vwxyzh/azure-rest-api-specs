@@ -243,7 +243,7 @@ interface WebPubSubChatServiceClient {
   /** List rooms for a user with pagination. */
   @summary("List rooms for a user with pagination.")
   @listsResource(ChatUserRoom)
-  listRoomsForUser is Azure.Core.Foundations.ResourceList<
+  listRoomsForUser is Operations.ResourceList<
     ChatUserRoom,
     {
       /** Maximum number of items to include in a page. */
@@ -254,7 +254,6 @@ interface WebPubSubChatServiceClient {
       @continuationToken
       @minLength(1)
       continuationToken?: string;
-    },
-    Azure.Core.Page<ChatUserRoom>
+    }
   >;
 }
