@@ -254,6 +254,7 @@ interface WebPubSubChatServiceClient {
       @continuationToken
       @minLength(1)
       continuationToken?: string;
-    }
+    },
+    Azure.Core.Page<ChatUserRoom>
   >;
 }
