@@ -214,13 +214,6 @@ interface Chat {
   listRoomsForUser is Azure.Core.Foundations.ResourceList<
     ChatRoom,
     {
-      /** Target hub name. */
-      @path
-      @pattern("^[A-Za-z][A-Za-z0-9_`,.[\\]]{0,127}$")
-      @minLength(1)
-      @maxLength(128)
-      hub: string;
-
       /** User identifier. */
       @path
       @pattern("^[^\\p{Cc}\\/\\\\#\\?:;]{1,64}$")
