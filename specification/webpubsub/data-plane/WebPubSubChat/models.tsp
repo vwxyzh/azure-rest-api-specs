@@ -228,7 +228,7 @@ model ChatUser {
 /** Represents a room associated with a user. */
 @resource("rooms")
 @parentResource(ChatUser)
-model ChatUserRoom extends ChatRoom {}
+model ChatUserRoom is ChatRoom;
 
 /** A human end-user, identified by a user role. */
 model HumanChatUser extends ChatUser {
