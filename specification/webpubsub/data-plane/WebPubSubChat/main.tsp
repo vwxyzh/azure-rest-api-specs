@@ -34,7 +34,6 @@ namespace WebPubSubChat;
 /** Service API versions. */
 enum Versions {
   /** The 2026-02-01-preview API version. */
-  @previewVersion
   v2026_02_01_preview: "2026-02-01-preview",
 
   /** The 2026-08-01-preview API version. */

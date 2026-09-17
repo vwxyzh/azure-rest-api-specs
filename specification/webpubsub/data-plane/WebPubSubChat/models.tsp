@@ -110,8 +110,13 @@ model ChatRole {
   @maxLength(64)
   name: string;
 
+  /** Permissions associated with the role in API versions before 2026-08-01-preview. */
+  @removed(Versions.v2026_08_01_preview)
+  @renamedFrom(Versions.v2026_08_01_preview, "permissions")
+  permissionsV20260201: string[];
+
   /** Permissions associated with the role. Do not mix user permissions and room permissions in one role. */
-  @typeChangedFrom(Versions.v2026_08_01_preview, string[])
+  @added(Versions.v2026_08_01_preview)
   permissions: ChatPermission[];
 
   ...EtagProperty;
