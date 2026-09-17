@@ -1,9 +1,11 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-client-generator-core";
 
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ClientGenerator.Core;
 using Azure.Core;
 
@@ -69,6 +71,7 @@ model ChatMessage {
 }
 
 /** A permission that can be assigned to a chat role. */
+@added(Versions.v2026_08_01_preview)
 union ChatPermission {
   string,
 
@@ -108,6 +111,7 @@ model ChatRole {
   name: string;
 
   /** Permissions associated with the role. Do not mix user permissions and room permissions in one role. */
+  @typeChangedFrom(Versions.v2026_08_01_preview, string[])
   permissions: ChatPermission[];
 
   ...EtagProperty;
@@ -136,6 +140,7 @@ model ChatRoom {
 }
 
 /** The lifecycle state of a chat topic. */
+@added(Versions.v2026_08_01_preview)
 union ChatTopicState {
   string,
 
@@ -150,6 +155,7 @@ union ChatTopicState {
 }
 
 /** Represents a chat topic in a room. */
+@added(Versions.v2026_08_01_preview)
 @resource("topics")
 @parentResource(ChatRoom)
 model ChatTopic {
@@ -249,6 +255,7 @@ model ChatUser {
 }
 
 /** Represents a room associated with a user. */
+@added(Versions.v2026_08_01_preview)
 @resource("rooms")
 @parentResource(ChatUser)
 model ChatUserRoom is ChatRoom;

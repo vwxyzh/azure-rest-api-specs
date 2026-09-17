@@ -1,9 +1,11 @@
 import "@azure-tools/typespec-azure-core";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "./models.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.Core.Traits;
 
@@ -127,6 +129,7 @@ interface WebPubSubChatServiceClient {
   // --- Rooms ---
 
   /** List rooms with pagination. */
+  @added(Versions.v2026_08_01_preview)
   @summary("List rooms with pagination.")
   listRooms is Operations.ResourceList<
     ChatRoom,
@@ -156,6 +159,7 @@ interface WebPubSubChatServiceClient {
   // --- Topics ---
 
   /** List topics in a room with pagination. */
+  @added(Versions.v2026_08_01_preview)
   @summary("List topics in a room with pagination.")
   listTopics is Operations.ResourceList<
     ChatTopic,
@@ -171,18 +175,22 @@ interface WebPubSubChatServiceClient {
   >;
 
   /** Create or replace a topic with a client-specified ID. */
+  @added(Versions.v2026_08_01_preview)
   @summary("Create or replace a topic.")
   createOrReplaceTopic is ConditionalOperations.ResourceCreateOrReplace<ChatTopic>;
 
   /** Get topic information. */
+  @added(Versions.v2026_08_01_preview)
   @summary("Get topic information.")
   getTopic is Operations.ResourceRead<ChatTopic>;
 
   /** Update a topic. */
+  @added(Versions.v2026_08_01_preview)
   @summary("Update a topic.")
   updateTopic is ConditionalOperations.ResourceUpdate<ChatTopic>;
 
   /** Soft delete a topic. */
+  @added(Versions.v2026_08_01_preview)
   @summary("Soft delete a topic.")
   deleteTopic is ConditionalOperations.ResourceDelete<ChatTopic>;
 
@@ -214,6 +222,7 @@ interface WebPubSubChatServiceClient {
   // --- Users ---
 
   /** List all users with pagination. */
+  @added(Versions.v2026_08_01_preview)
   @summary("List all users with pagination.")
   listUsers is Operations.ResourceList<
     ChatUser,
@@ -241,6 +250,7 @@ interface WebPubSubChatServiceClient {
   deleteUser is ConditionalOperations.ResourceDelete<ChatUser>;
 
   /** List rooms for a user with pagination. */
+  @added(Versions.v2026_08_01_preview)
   @summary("List rooms for a user with pagination.")
   @listsResource(ChatUserRoom)
   listRoomsForUser is Operations.ResourceList<
